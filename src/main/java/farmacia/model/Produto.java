@@ -1,13 +1,17 @@
 package farmacia.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
@@ -16,9 +20,15 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+
 @Entity
 @Table(name = "tb_produtos")
 public class Produto {
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "categoria_id", referencedColumnName = "id")
+	private Categoria categoria_id;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,11 +94,11 @@ public class Produto {
 	}
 
 	public Categoria getCategoria() {
-		return categoria;
+		return categoria_id;
 	}
 
 	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+		this.categoria_id = categoria;
 	}
 
 }
