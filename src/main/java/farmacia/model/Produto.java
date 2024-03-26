@@ -28,8 +28,7 @@ public class Produto {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria_id", referencedColumnName = "id")
 	private Categoria categoria_id;
-
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
